@@ -316,7 +316,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 
 
 def calculate_match(column1, column2, threshold):
-    """Calculate matching scores between two columns using Jaro-Winkler similarity."""
+    
     results = []
     
     for value1 in column1:
