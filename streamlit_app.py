@@ -132,6 +132,113 @@ st.markdown("""
             transform: translateY(-2px);
         }
     </style>
+
+        /* Animation container */
+        .animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Audio player styling */
+        .audio-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .welcome-animation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            background: rgba(14, 17, 23, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# Add Lottie animation script
+def load_lottie_animation():
+    lottie_url = "https://assets5.lottiefiles.com/packages/lf20_V9t630.json"
+    return f"""
+    <div id="lottie-container"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js"></script>
+    <script>
+        var animation = lottie.loadAnimation({{
+            container: document.getElementById('lottie-container'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '{lottie_url}'
+        }});
+    </script>
+    """
+
+# Welcome animation with music
+if 'first_load' not in st.session_state:
+    st.session_state.first_load = True
+
+if st.session_state.first_load:
+    # Background music
+    st.markdown("""
+        <audio id="bgMusic" autoplay loop>
+            <source src="https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        
+        <div class="welcome-animation">
+            <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+            <lottie-player
+                src="https://assets2.lottiefiles.com/packages/lf20_jm6wb9bc.json"
+                background="transparent"
+                speed="1"
+                style="width: 400px; height: 400px;"
+                loop
+                autoplay>
+            </lottie-player>
+            <h1 style="color: white; margin-top: 20px;">Welcome to Health Facility Matching Tool!</h1>
+        </div>
+        
+        <script>
+            setTimeout(function() {
+                document.querySelector('.welcome-animation').style.opacity = '0';
+                document.querySelector('.welcome-animation').style.transition = 'opacity 1s';
+                setTimeout(function() {
+                    document.querySelector('.welcome-animation').style.display = 'none';
+                }, 1000);
+            }, 5000);
+        </script>
+    """, unsafe_allow_html=True)
+    
+    # Add audio controls
+    st.sidebar.markdown("""
+        <div class="audio-player">
+            <button onclick="document.getElementById('bgMusic').play()">Play Music</button>
+            <button onclick="document.getElementById('bgMusic').pause()">Pause Music</button>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    time.sleep(5)
+    st.session_state.first_load = False
+
+# Add background animation
+st.markdown(f"""
+    <div class="animation-container">
+        {load_lottie_animation()}
+    </div>
+""", unsafe_allow_html=True)
 """, unsafe_allow_html=True)
 
 # Initialize session states
