@@ -256,7 +256,7 @@ def calculate_match(df1, df2, col1, col2, threshold):
     return pd.DataFrame(results)
 
 def main():
-    st.markdown('<h1 class="custom-title">Health Facility Name Matching</h1>', unsafe_allow_html=True)
+    st.title('Health Facility Name Matching')
 
     # Step 1: File Upload
     if st.session_state.step == 1:
