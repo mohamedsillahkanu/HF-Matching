@@ -14,6 +14,12 @@ st.set_page_config(page_title="Health Facility Matching Tool", page_icon="🏥",
 # Force dark theme across the entire app
 st.markdown("""
     <style>
+        /* Make all text bold */
+        * {
+            font-weight: bold !important;
+            font-size: 1.1rem !important;
+        }
+
         /* Override Streamlit's default theme to force dark mode */
         .stApp {
             background-color: #0E1117 !important;
@@ -32,7 +38,7 @@ st.markdown("""
         
         /* Custom title styles */
         .custom-title {
-            font-size: 2.5rem;
+            font-size: 2.7rem !important;
             font-weight: 700;
             text-align: center;
             padding: 1rem 0;
@@ -49,11 +55,13 @@ st.markdown("""
         .stSelectbox > div > div {
             background-color: #1E1E1E !important;
             color: #E0E0E0 !important;
+            font-size: 1.1rem !important;
         }
         
         /* Dark theme for checkbox */
         .stCheckbox > div > div > label {
             color: #E0E0E0 !important;
+            font-size: 1.1rem !important;
         }
         
         /* Update section cards for dark theme */
@@ -81,7 +89,7 @@ st.markdown("""
         }
 
         .section-header {
-            font-size: 1.5rem;
+            font-size: 1.7rem !important;
             font-weight: bold;
             margin-bottom: 1rem;
             color: #3498db !important;
@@ -109,6 +117,11 @@ st.markdown("""
             color: #E0E0E0 !important;
         }
         
+        .dataframe td, .dataframe th {
+            font-weight: bold !important;
+            font-size: 1.1rem !important;
+        }
+        
         /* Style for file uploader */
         .stFileUploader {
             background-color: #1E1E1E !important;
@@ -125,13 +138,14 @@ st.markdown("""
             border-radius: 8px;
             padding: 0.5rem 1rem;
             transition: all 0.3s ease;
+            font-size: 1.1rem !important;
+            font-weight: bold !important;
         }
 
         .stButton button:hover {
             background-color: #2980b9 !important;
             transform: translateY(-2px);
         }
-    </style>
 
         /* Animation container */
         .animation-container {
@@ -166,30 +180,50 @@ st.markdown("""
             align-items: center;
             flex-direction: column;
         }
+        
+        /* Audio player buttons */
+        .audio-player button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .audio-player button:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Text inputs */
+        .stTextInput input {
+            font-size: 1.1rem !important;
+            font-weight: bold !important;
+            color: #000000 !important;
+            background-color: #FFFFFF !important;
+        }
+
+        /* Slider */
+        .stSlider {
+            font-size: 1.1rem !important;
+        }
     </style>
 """, unsafe_allow_html=True)
 
-# Add Lottie animation script
-def load_lottie_animation():
-    lottie_url = "https://assets5.lottiefiles.com/packages/lf20_V9t630.json"
-    return f"""
-    <div id="lottie-container"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js"></script>
-    <script>
-        var animation = lottie.loadAnimation({{
-            container: document.getElementById('lottie-container'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: '{lottie_url}'
-        }});
-    </script>
-    """
+# Initialize session states
+if 'last_animation' not in st.session_state:
+    st.session_state.last_animation = time.time()
+    st.session_state.theme_index = 0
+    st.session_state.first_load = True
+if 'step' not in st.session_state:
+    st.session_state.step = 1
+if 'master_hf_list' not in st.session_state:
+    st.session_state.master_hf_list = None
+if 'health_facilities_dhis2_list' not in st.session_state:
+    st.session_state.health_facilities_dhis2_list = None
 
 # Welcome animation with music
-if 'first_load' not in st.session_state:
-    st.session_state.first_load = True
-
 if st.session_state.first_load:
     # Background music
     st.markdown("""
@@ -222,36 +256,16 @@ if st.session_state.first_load:
         </script>
     """, unsafe_allow_html=True)
     
-    # Add audio controls
+    # Add audio controls in sidebar
     st.sidebar.markdown("""
         <div class="audio-player">
-            <button onclick="document.getElementById('bgMusic').play()">Play Music</button>
-            <button onclick="document.getElementById('bgMusic').pause()">Pause Music</button>
+            <button onclick="document.getElementById('bgMusic').play()">🎵 Play</button>
+            <button onclick="document.getElementById('bgMusic').pause()">⏸️ Pause</button>
         </div>
     """, unsafe_allow_html=True)
     
     time.sleep(5)
     st.session_state.first_load = False
-
-# Add background animation
-st.markdown(f"""
-    <div class="animation-container">
-        {load_lottie_animation()}
-    </div>
-""", unsafe_allow_html=True)
-""", unsafe_allow_html=True)
-
-# Initialize session states
-if 'last_animation' not in st.session_state:
-    st.session_state.last_animation = time.time()
-    st.session_state.theme_index = 0
-    st.session_state.first_load = True
-if 'step' not in st.session_state:
-    st.session_state.step = 1
-if 'master_hf_list' not in st.session_state:
-    st.session_state.master_hf_list = None
-if 'health_facilities_dhis2_list' not in st.session_state:
-    st.session_state.health_facilities_dhis2_list = None
 
 # Define dark themes
 themes = {
@@ -287,16 +301,6 @@ themes = {
     }
 }
 
-# Welcome animation on first load
-if st.session_state.first_load:
-    st.balloons()
-    st.snow()
-    welcome_placeholder = st.empty()
-    welcome_placeholder.success("Welcome to the Health Facility Matching Tool! 🏥")
-    time.sleep(3)
-    welcome_placeholder.empty()
-    st.session_state.first_load = False
-
 # Auto theme changer and animation
 current_time = time.time()
 if current_time - st.session_state.last_animation >= 30:
@@ -311,222 +315,82 @@ else:
 # Get current theme
 theme = themes[selected_theme]
 
-
-st.markdown('</div>', unsafe_allow_html=True)
-
-
-def calculate_match(column1, column2, threshold):
-    
+def calculate_match(df1, df2, col1, col2, threshold):
+    """Calculate matching scores between two columns using Jaro-Winkler similarity."""
     results = []
     
-    for value1 in column1:
-        if value1 in column2.values:
-            results.append({
-                'Col1': value1,
-                'Col2': value1,
+    for idx1, row1 in df1.iterrows():
+        value1 = str(row1[col1])
+        if value1 in df2[col2].values:
+            # Exact match
+            matched_row = df2[df2[col2] == value1].iloc[0]
+            result_row = {
+                f'MFL_{col1}': value1,
+                f'DHIS2_{col2}': value1,
                 'Match_Score': 100,
-                'Match_Status': 'Match'
-            })
+                'Match_Status': 'Match',
+                'New_HF_name_in_MFL': value1
+            }
+            # Add all columns from both dataframes
+            for c in df1.columns:
+                if c != col1:
+                    result_row[f'MFL_{c}'] = row1[c]
+            for c in df2.columns:
+                if c != col2:
+                    result_row[f'DHIS2_{c}'] = matched_row[c]
+            results.append(result_row)
         else:
+            # Find best match
             best_score = 0
-            best_match = None
-            for value2 in column2:
-                similarity = jaro_winkler_similarity(str(value1), str(value2)) * 100
+            best_match_row = None
+            for idx2, row2 in df2.iterrows():
+                value2 = str(row2[col2])
+                similarity = jaro_winkler_similarity(value1, value2) * 100
                 if similarity > best_score:
                     best_score = similarity
-                    best_match = value2
-            results.append({
-                'Col1': value1,
-                'Col2': best_match,
+                    best_match_row = row2
+            
+            result_row = {
+                f'MFL_{col1}': value1,
+                f'DHIS2_{col2}': best_match_row[col2] if best_match_row is not None else None,
                 'Match_Score': round(best_score, 2),
-                'Match_Status': 'Unmatch' if best_score < threshold else 'Match'
-            })
+                'Match_Status': 'Unmatch' if best_score < threshold else 'Match',
+                'New_HF_name_in_MFL': best_match_row[col2] if best_score >= threshold else value1
+            }
+            # Add all columns from both dataframes
+            for c in df1.columns:
+                if c != col1:
+                    result_row[f'MFL_{c}'] = row1[c]
+            for c in df2.columns:
+                if c != col2:
+                    result_row[f'DHIS2_{c}'] = best_match_row[c] if best_match_row is not None else None
+            results.append(result_row)
     
-    for value2 in column2:
-        if value2 not in [r['Col2'] for r in results]:
-            results.append({
-                'Col1': None,
-                'Col2': value2,
+    # Add unmatched facilities from DHIS2
+    for idx2, row2 in df2.iterrows():
+        value2 = str(row2[col2])
+        if value2 not in [str(r[f'DHIS2_{col2}']) for r in results]:
+            result_row = {
+                f'MFL_{col1}': None,
+                f'DHIS2_{col2}': value2,
                 'Match_Score': 0,
-                'Match_Status': 'Unmatch'
-            })
+                'Match_Status': 'Unmatch',
+                'New_HF_name_in_MFL': None
+            }
+            # Add all columns from both dataframes
+            for c in df1.columns:
+                if c != col1:
+                    result_row[f'MFL_{c}'] = None
+            for c in df2.columns:
+                if c != col2:
+                    result_row[f'DHIS2_{c}'] = row2[c]
+            results.append(result_row)
     
     return pd.DataFrame(results)
 
 def main():
-    st.title("Health Facility Name Matching")
-
-    # Initialize session state
-    if 'step' not in st.session_state:
-        st.session_state.step = 1
-    if 'master_hf_list' not in st.session_state:
-        st.session_state.master_hf_list = None
-    if 'health_facilities_dhis2_list' not in st.session_state:
-        st.session_state.health_facilities_dhis2_list = None
+    st.markdown('<h1 class="custom-title">Health Facility Name Matching</h1>', unsafe_allow_html=True)
 
     # Step 1: File Upload
     if st.session_state.step == 1:
-        st.header("Step 1: Upload Files")
-        mfl_file = st.file_uploader("Upload Master HF List (CSV, Excel):", type=['csv', 'xlsx', 'xls'])
-        dhis2_file = st.file_uploader("Upload DHIS2 HF List (CSV, Excel):", type=['csv', 'xlsx', 'xls'])
-
-        if mfl_file and dhis2_file:
-            try:
-                # Read files
-                if mfl_file.name.endswith('.csv'):
-                    st.session_state.master_hf_list = pd.read_csv(mfl_file)
-                else:
-                    st.session_state.master_hf_list = pd.read_excel(mfl_file)
-
-                if dhis2_file.name.endswith('.csv'):
-                    st.session_state.health_facilities_dhis2_list = pd.read_csv(dhis2_file)
-                else:
-                    st.session_state.health_facilities_dhis2_list = pd.read_excel(dhis2_file)
-
-                st.success("Files uploaded successfully!")
-                
-                # Display previews
-                st.subheader("Preview of Master HF List")
-                st.dataframe(st.session_state.master_hf_list.head())
-                st.subheader("Preview of DHIS2 HF List")
-                st.dataframe(st.session_state.health_facilities_dhis2_list.head())
-
-                if st.button("Proceed to Column Renaming"):
-                    st.session_state.step = 2
-                    st.experimental_rerun()
-
-            except Exception as e:
-                st.error(f"Error reading files: {e}")
-
-    # Step 2: Column Renaming
-    elif st.session_state.step == 2:
-        st.header("Step 2: Rename Columns (Optional)")
-        
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.subheader("Master HF List Columns")
-            mfl_renamed_columns = {}
-            for col in st.session_state.master_hf_list.columns:
-                new_col = st.text_input(f"Rename '{col}' to:", key=f"mfl_{col}", value=col)
-                mfl_renamed_columns[col] = new_col
-
-        with col2:
-            st.subheader("DHIS2 HF List Columns")
-            dhis2_renamed_columns = {}
-            for col in st.session_state.health_facilities_dhis2_list.columns:
-                new_col = st.text_input(f"Rename '{col}' to:", key=f"dhis2_{col}", value=col)
-                dhis2_renamed_columns[col] = new_col
-
-        if st.button("Apply Changes and Continue"):
-            st.session_state.master_hf_list = st.session_state.master_hf_list.rename(columns=mfl_renamed_columns)
-            st.session_state.health_facilities_dhis2_list = st.session_state.health_facilities_dhis2_list.rename(
-                columns=dhis2_renamed_columns)
-            st.session_state.step = 3
-            st.experimental_rerun()
-
-        if st.button("Skip Renaming"):
-            st.session_state.step = 3
-            st.experimental_rerun()
-
-    # Step 3: Column Selection and Matching
-    elif st.session_state.step == 3:
-        st.header("Step 3: Select Columns for Matching")
-        
-        mfl_col = st.selectbox("Select HF Name column in Master HF List:", 
-                              st.session_state.master_hf_list.columns)
-        dhis2_col = st.selectbox("Select HF Name column in DHIS2 HF List:", 
-                                st.session_state.health_facilities_dhis2_list.columns)
-        
-        threshold = st.slider("Set Match Threshold (0-100):", 
-                            min_value=0, max_value=100, value=70)
-
-        if st.button("Perform Matching"):
-            # Process data
-            master_hf_list_clean = st.session_state.master_hf_list.copy()
-            dhis2_list_clean = st.session_state.health_facilities_dhis2_list.copy()
-            
-            master_hf_list_clean[mfl_col] = master_hf_list_clean[mfl_col].astype(str)
-            master_hf_list_clean = master_hf_list_clean.drop_duplicates(subset=[mfl_col])
-            dhis2_list_clean[dhis2_col] = dhis2_list_clean[dhis2_col].astype(str)
-
-            st.write("### Counts of Health Facilities")
-            st.write(f"Count of HFs in DHIS2 list: {len(dhis2_list_clean)}")
-            st.write(f"Count of HFs in MFL list: {len(master_hf_list_clean)}")
-
-            # Perform matching
-            with st.spinner("Performing matching..."):
-                hf_name_match_results = calculate_match(
-                    master_hf_list_clean[mfl_col],
-                    dhis2_list_clean[dhis2_col],
-                    threshold
-                )
-
-                # Rename columns and add new column for replacements
-                hf_name_match_results = hf_name_match_results.rename(
-                    columns={'Col1': 'HF_Name_in_MFL', 'Col2': 'HF_Name_in_DHIS2'}
-                )
-                hf_name_match_results['New_HF_Name_in_MFL'] = np.where(
-                    hf_name_match_results['Match_Score'] >= threshold,
-                    hf_name_match_results['HF_Name_in_DHIS2'],
-                    hf_name_match_results['HF_Name_in_MFL']
-                )
-
-                # Display results
-                st.write("### Matching Results")
-                st.dataframe(hf_name_match_results)
-
-                # Download results
-                output = BytesIO()
-                with pd.ExcelWriter(output, engine='openpyxl') as writer:
-                    hf_name_match_results.to_excel(writer, index=False)
-                output.seek(0)
-
-                st.download_button(
-                    label="Download Matching Results as Excel",
-                    data=output,
-                    file_name="hf_name_matching_results.xlsx",
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                )
-
-        if st.button("Start Over"):
-            st.session_state.step = 1
-            st.session_state.master_hf_list = None
-            st.session_state.health_facilities_dhis2_list = None
-            st.experimental_rerun()
-
-if __name__ == "__main__":
-    main()
-
-# Sidebar theme selector
-st.sidebar.selectbox(
-    "🎨 Select Theme",
-    list(themes.keys()),
-    index=st.session_state.theme_index,
-    key='theme_selector'
-)
-
-# Enable/Disable animations toggle
-if st.sidebar.checkbox("Enable Auto Animations", value=True):
-    def show_periodic_animations():
-        while True:
-            time.sleep(60)
-            st.balloons()
-            time.sleep(10)
-            st.snow()
-
-    # Start animation thread if not already running
-    if not hasattr(st.session_state, 'animation_thread'):
-        st.session_state.animation_thread = threading.Thread(target=show_periodic_animations)
-        st.session_state.animation_thread.daemon = True
-        st.session_state.animation_thread.start()
-
-
-        if st.button("Start Over"):
-            st.session_state.step = 1
-            st.session_state.master_hf_list = None
-            st.session_state.health_facilities_dhis2_list = None
-            st.experimental_rerun()
-
-
-
+        st.markdown('
