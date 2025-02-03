@@ -208,16 +208,6 @@ theme = themes[selected_theme]
 st.markdown('</div>', unsafe_allow_html=True)
 
 
-import streamlit as st
-import pandas as pd
-import numpy as np
-from jellyfish import jaro_winkler_similarity
-from io import BytesIO
-from PIL import Image
-
-
-
-
 def calculate_match(column1, column2, threshold):
     """Calculate matching scores between two columns using Jaro-Winkler similarity."""
     results = []
@@ -401,9 +391,6 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-
-
 # Sidebar theme selector
 st.sidebar.selectbox(
     "🎨 Select Theme",
@@ -427,5 +414,12 @@ if st.sidebar.checkbox("Enable Auto Animations", value=True):
         st.session_state.animation_thread.daemon = True
         st.session_state.animation_thread.start()
 
-if __name__ == "__main__":
-    main()
+
+        if st.button("Start Over"):
+            st.session_state.step = 1
+            st.session_state.master_hf_list = None
+            st.session_state.health_facilities_dhis2_list = None
+            st.experimental_rerun()
+
+
+
