@@ -69,7 +69,7 @@ themes = {
     }
 }
 
-# Custom CSS styles
+# Custom CSS styles with enhanced button and input styling
 st.markdown("""
     <style>
         .stApp {
@@ -86,6 +86,103 @@ st.markdown("""
             color: var(--text-color, #E0E0E0) !important;
         }
         
+        /* Enhanced Button Styling */
+        .stButton > button {
+            color: black !important;
+            font-weight: bold !important;
+            background-color: white !important;
+            border: 2px solid #2e2e2e !important;
+            border-radius: 4px !important;
+            padding: 0.5rem 1rem !important;
+            width: 100% !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+        }
+
+        .stButton > button:hover {
+            background-color: #f0f0f0 !important;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+            transform: translateY(-1px) !important;
+        }
+
+        /* Enhanced File Uploader Styling */
+        [data-testid="stFileUploader"] {
+            background-color: white !important;
+            padding: 1rem !important;
+            border-radius: 4px !important;
+            border: 2px solid #2e2e2e !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+        }
+
+        [data-testid="stFileUploader"] > div > div {
+            color: black !important;
+            font-weight: bold !important;
+        }
+
+        /* Enhanced Download Button Styling */
+        .stDownloadButton > button {
+            color: black !important;
+            font-weight: bold !important;
+            background-color: white !important;
+            border: 2px solid #2e2e2e !important;
+            border-radius: 4px !important;
+            padding: 0.5rem 1rem !important;
+            width: 100% !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+        }
+
+        .stDownloadButton > button:hover {
+            background-color: #f0f0f0 !important;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+            transform: translateY(-1px) !important;
+        }
+
+        /* Enhanced Select Box Styling */
+        .stSelectbox > div > div {
+            color: black !important;
+            font-weight: bold !important;
+            background-color: white !important;
+            border: 2px solid #2e2e2e !important;
+            border-radius: 4px !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+        }
+
+        /* Success Message Styling */
+        .stSuccess {
+            color: black !important;
+            font-weight: bold !important;
+            background-color: white !important;
+            border: 2px solid #2e2e2e !important;
+            border-radius: 4px !important;
+        }
+
+        /* Error Message Styling */
+        .stError {
+            color: black !important;
+            font-weight: bold !important;
+            background-color: white !important;
+            border: 2px solid #ff0000 !important;
+            border-radius: 4px !important;
+        }
+
+        /* Light Theme Specific Styles */
+        [data-theme="light"] .stButton > button,
+        [data-theme="light"] .stDownloadButton > button {
+            background: linear-gradient(to bottom, #ffffff, #f8f9fa) !important;
+            border: 2px solid #dee2e6 !important;
+        }
+
+        [data-theme="light"] .stButton > button:hover,
+        [data-theme="light"] .stDownloadButton > button:hover {
+            background: linear-gradient(to bottom, #f8f9fa, #e9ecef) !important;
+        }
+
+        [data-theme="light"] [data-testid="stFileUploader"] {
+            background: linear-gradient(to bottom, #ffffff, #f8f9fa) !important;
+            border: 2px solid #dee2e6 !important;
+        }
+        
         .custom-title {
             font-size: 2.5rem;
             font-weight: 700;
@@ -98,15 +195,6 @@ st.markdown("""
             -webkit-text-fill-color: transparent;
             display: block;
             width: 100%;
-        }
-        
-        .stSelectbox > div > div {
-            background-color: var(--input-bg, #1E1E1E) !important;
-            color: var(--text-color, #E0E0E0) !important;
-        }
-        
-        .stCheckbox > div > div > label {
-            color: var(--text-color, #E0E0E0) !important;
         }
         
         .section-card {
@@ -139,6 +227,7 @@ st.markdown("""
             position: relative;
             color: var(--text-color, #E0E0E0) !important;
         }
+        
         .custom-bullet::before {
             content: "•";
             color: var(--text-color, #E0E0E0);
@@ -149,7 +238,6 @@ st.markdown("""
         .content-text {
             color: var(--text-color, #E0E0E0) !important;
         }
-
         
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -165,8 +253,29 @@ st.markdown("""
             from { transform: scale(0.95); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
+
+        /* Slider Styling */
+        .stSlider > div > div > div {
+            background-color: white !important;
+        }
+
+        .stSlider > div > div > div > div {
+            background-color: black !important;
+        }
+
+        /* DataFrame Styling */
+        .stDataFrame {
+            background-color: white !important;
+            color: black !important;
+            font-weight: bold !important;
+            border-radius: 4px !important;
+            border: 2px solid #2e2e2e !important;
+        }
+
     </style>
 """, unsafe_allow_html=True)
+
+
 
 def calculate_match(column1, column2, threshold):
     """Calculate matching scores between two columns using Jaro-Winkler similarity."""
