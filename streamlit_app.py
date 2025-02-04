@@ -72,207 +72,241 @@ themes = {
 # Custom CSS styles with enhanced button and input styling
 st.markdown("""
     <style>
-        .stApp {
-            background-color: var(--bg-color, #0E1117) !important;
-            color: var(--text-color, #E0E0E0) !important;
-        }
-        
-        [data-testid="stSidebar"] {
-            background-color: var(--sidebar-bg, #1E1E1E) !important;
-            border-right: 1px solid var(--border-color, #2E2E2E);
-        }
-        
-        .stMarkdown, p, h1, h2, h3 {
-            color: var(--text-color, #E0E0E0) !important;
-        }
-        
-        /* Enhanced Button Styling */
-        .stButton > button {
-            color: black !important;
-            font-weight: bold !important;
-            background-color: white !important;
-            border: 2px solid #2e2e2e !important;
-            border-radius: 4px !important;
-            padding: 0.5rem 1rem !important;
-            width: 100% !important;
-            transition: all 0.3s ease !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-        }
+    .stApp {
+        background-color: var(--bg-color, #0E1117) !important;
+        color: var(--text-color, #E0E0E0) !important;
+    }
+    
+    [data-testid="stSidebar"] {
+        background-color: var(--sidebar-bg, #1E1E1E) !important;
+        border-right: 1px solid var(--border-color, #2E2E2E);
+    }
+    
+    .stMarkdown, p, h1, h2, h3 {
+        color: var(--text-color, #E0E0E0) !important;
+    }
 
-        .stButton > button:hover {
-            background-color: #f0f0f0 !important;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
-            transform: translateY(-1px) !important;
-        }
+    /* Dark Theme Button Styling */
+    [data-theme="dark"] .stButton > button,
+    [data-theme="dark"] .stDownloadButton > button {
+        color: white !important;
+        font-weight: bold !important;
+        background-color: #1E1E1E !important;
+        border: 2px solid #3498db !important;
+        border-radius: 4px !important;
+        padding: 0.5rem 1rem !important;
+        width: 100% !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    }
 
-        /* Enhanced File Uploader Styling */
-        [data-testid="stFileUploader"] {
-            background-color: white !important;
-            padding: 1rem !important;
-            border-radius: 4px !important;
-            border: 2px solid #2e2e2e !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-        }
+    [data-theme="dark"] .stButton > button:hover,
+    [data-theme="dark"] .stDownloadButton > button:hover {
+        background-color: #2E2E2E !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+        transform: translateY(-1px) !important;
+    }
 
-        [data-testid="stFileUploader"] > div > div {
-            color: black !important;
-            font-weight: bold !important;
-        }
+    /* Light Theme Button Styling */
+    [data-theme="light"] .stButton > button,
+    [data-theme="light"] .stDownloadButton > button {
+        color: black !important;
+        font-weight: bold !important;
+        background-color: white !important;
+        border: 2px solid #2e2e2e !important;
+        border-radius: 4px !important;
+        padding: 0.5rem 1rem !important;
+        width: 100% !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    }
 
-        /* Enhanced Download Button Styling */
-        .stDownloadButton > button {
-            color: black !important;
-            font-weight: bold !important;
-            background-color: white !important;
-            border: 2px solid #2e2e2e !important;
-            border-radius: 4px !important;
-            padding: 0.5rem 1rem !important;
-            width: 100% !important;
-            transition: all 0.3s ease !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-        }
+    [data-theme="light"] .stButton > button:hover,
+    [data-theme="light"] .stDownloadButton > button:hover {
+        background-color: #f0f0f0 !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+        transform: translateY(-1px) !important;
+    }
 
-        .stDownloadButton > button:hover {
-            background-color: #f0f0f0 !important;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
-            transform: translateY(-1px) !important;
-        }
+    /* Dark Theme File Uploader */
+    [data-theme="dark"] [data-testid="stFileUploader"] {
+        background-color: #1E1E1E !important;
+        padding: 1rem !important;
+        border-radius: 4px !important;
+        border: 2px solid #3498db !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    }
 
-        /* Enhanced Select Box Styling */
-        .stSelectbox > div > div {
-            color: black !important;
-            font-weight: bold !important;
-            background-color: white !important;
-            border: 2px solid #2e2e2e !important;
-            border-radius: 4px !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-        }
+    [data-theme="dark"] [data-testid="stFileUploader"] > div > div {
+        color: white !important;
+        font-weight: bold !important;
+    }
 
-        /* Success Message Styling */
-        .stSuccess {
-            color: black !important;
-            font-weight: bold !important;
-            background-color: white !important;
-            border: 2px solid #2e2e2e !important;
-            border-radius: 4px !important;
-        }
+    /* Light Theme File Uploader */
+    [data-theme="light"] [data-testid="stFileUploader"] {
+        background-color: white !important;
+        padding: 1rem !important;
+        border-radius: 4px !important;
+        border: 2px solid #2e2e2e !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    }
 
-        /* Error Message Styling */
-        .stError {
-            color: black !important;
-            font-weight: bold !important;
-            background-color: white !important;
-            border: 2px solid #ff0000 !important;
-            border-radius: 4px !important;
-        }
+    [data-theme="light"] [data-testid="stFileUploader"] > div > div {
+        color: black !important;
+        font-weight: bold !important;
+    }
 
-        /* Light Theme Specific Styles */
-        [data-theme="light"] .stButton > button,
-        [data-theme="light"] .stDownloadButton > button {
-            background: linear-gradient(to bottom, #ffffff, #f8f9fa) !important;
-            border: 2px solid #dee2e6 !important;
-        }
+    /* Dark Theme Select Box */
+    [data-theme="dark"] .stSelectbox > div > div {
+        color: white !important;
+        font-weight: bold !important;
+        background-color: #1E1E1E !important;
+        border: 2px solid #3498db !important;
+        border-radius: 4px !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    }
 
-        [data-theme="light"] .stButton > button:hover,
-        [data-theme="light"] .stDownloadButton > button:hover {
-            background: linear-gradient(to bottom, #f8f9fa, #e9ecef) !important;
-        }
+    /* Light Theme Select Box */
+    [data-theme="light"] .stSelectbox > div > div {
+        color: black !important;
+        font-weight: bold !important;
+        background-color: white !important;
+        border: 2px solid #2e2e2e !important;
+        border-radius: 4px !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    }
 
-        [data-theme="light"] [data-testid="stFileUploader"] {
-            background: linear-gradient(to bottom, #ffffff, #f8f9fa) !important;
-            border: 2px solid #dee2e6 !important;
-        }
-        
-        .custom-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            padding: 1rem 0;
-            margin-bottom: 2rem;
-            color: var(--text-color, #E0E0E0) !important;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: block;
-            width: 100%;
-        }
-        
-        .section-card {
-            background: var(--card-bg, #1E1E1E) !important;
-            color: var(--text-color, #E0E0E0) !important;
-            box-shadow: 0 4px 6px var(--shadow-color, rgba(0, 0, 0, 0.3)) !important;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 20px 0;
-            border-left: 5px solid var(--accent-color, #3498db);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: slideIn 0.5s ease-out;
-        }
-        
-        .section-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px var(--shadow-color, rgba(0, 0, 0, 0.5));
-            background: var(--card-hover-bg, #2E2E2E) !important;
-        }
+    /* Success Message Styling */
+    [data-theme="dark"] .stSuccess {
+        color: white !important;
+        font-weight: bold !important;
+        background-color: #1E1E1E !important;
+        border: 2px solid #00ff00 !important;
+        border-radius: 4px !important;
+    }
 
-        .section-header {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            color: var(--accent-color, #3498db) !important;
-        }
-        
-        .custom-bullet {
-            margin-left: 20px;
-            position: relative;
-            color: var(--text-color, #E0E0E0) !important;
-        }
-        
-        .custom-bullet::before {
-            content: "•";
-            color: var(--text-color, #E0E0E0);
-            position: absolute;
-            left: -15px;
-        }
-        
-        .content-text {
-            color: var(--text-color, #E0E0E0) !important;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateX(-20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        @keyframes scaleIn {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
+    [data-theme="light"] .stSuccess {
+        color: black !important;
+        font-weight: bold !important;
+        background-color: white !important;
+        border: 2px solid #00aa00 !important;
+        border-radius: 4px !important;
+    }
 
-        /* Slider Styling */
-        .stSlider > div > div > div {
-            background-color: white !important;
-        }
+    /* Error Message Styling */
+    [data-theme="dark"] .stError {
+        color: white !important;
+        font-weight: bold !important;
+        background-color: #1E1E1E !important;
+        border: 2px solid #ff0000 !important;
+        border-radius: 4px !important;
+    }
 
-        .stSlider > div > div > div > div {
-            background-color: black !important;
-        }
+    [data-theme="light"] .stError {
+        color: black !important;
+        font-weight: bold !important;
+        background-color: white !important;
+        border: 2px solid #ff0000 !important;
+        border-radius: 4px !important;
+    }
 
-        /* DataFrame Styling */
-        .stDataFrame {
-            background-color: white !important;
-            color: black !important;
-            font-weight: bold !important;
-            border-radius: 4px !important;
-            border: 2px solid #2e2e2e !important;
-        }
+    /* DataFrame Styling */
+    [data-theme="dark"] .stDataFrame {
+        color: white !important;
+        font-weight: bold !important;
+        background-color: #1E1E1E !important;
+        border: 2px solid #3498db !important;
+        border-radius: 4px !important;
+    }
 
-    </style>
+    [data-theme="light"] .stDataFrame {
+        color: black !important;
+        font-weight: bold !important;
+        background-color: white !important;
+        border: 2px solid #2e2e2e !important;
+        border-radius: 4px !important;
+    }
+
+    /* Slider Styling */
+    [data-theme="dark"] .stSlider > div > div > div {
+        background-color: #3498db !important;
+    }
+
+    [data-theme="dark"] .stSlider > div > div > div > div {
+        background-color: white !important;
+    }
+
+    [data-theme="light"] .stSlider > div > div > div {
+        background-color: #2e2e2e !important;
+    }
+
+    [data-theme="light"] .stSlider > div > div > div > div {
+        background-color: black !important;
+    }
+
+    /* Text Input Styling */
+    [data-theme="dark"] .stTextInput > div > div > input {
+        color: white !important;
+        font-weight: bold !important;
+        background-color: #1E1E1E !important;
+        border: 2px solid #3498db !important;
+        border-radius: 4px !important;
+    }
+
+    [data-theme="light"] .stTextInput > div > div > input {
+        color: black !important;
+        font-weight: bold !important;
+        background-color: white !important;
+        border: 2px solid #2e2e2e !important;
+        border-radius: 4px !important;
+    }
+
+    /* Custom Cards */
+    .section-card {
+        background: var(--card-bg, #1E1E1E) !important;
+        color: var(--text-color, #E0E0E0) !important;
+        box-shadow: 0 4px 6px var(--shadow-color, rgba(0, 0, 0, 0.3)) !important;
+        border-radius: 15px;
+        padding: 25px;
+        margin: 20px 0;
+        border-left: 5px solid var(--accent-color, #3498db);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        animation: slideIn 0.5s ease-out;
+    }
+
+    .section-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px var(--shadow-color, rgba(0, 0, 0, 0.5));
+    }
+
+    /* Custom Title */
+    .custom-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateX(-20px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes scaleIn {
+        from { transform: scale(0.95); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+</style>
 """, unsafe_allow_html=True)
 
 
