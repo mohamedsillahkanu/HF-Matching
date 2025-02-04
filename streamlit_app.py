@@ -476,7 +476,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 def main():
-    st.title("Health Facility Name Matching")
+
 
     # Initialize session state
     if 'step' not in st.session_state:
@@ -670,7 +670,7 @@ def main():
 
 # Main execution
 if __name__ == "__main__":
-    st.title("Automated Geospatial Analysis for Sub-National Tailoring of Malaria Interventions")
+    st.title("Health Facility Name Matching")
     
     st.markdown("""
         <div class="img-container" style="text-align: center;">
