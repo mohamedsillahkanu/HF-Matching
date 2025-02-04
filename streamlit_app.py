@@ -539,7 +539,7 @@ if __name__ == "__main__":
     main()
     
     # Enable animations if checkbox is checked
-    if st.sidebar.checkbox("Enable Auto Animations", value=True):
+    if st.sidebar.checkbox("Enable Auto Animations", value=False):
         def show_periodic_animations():
             while True:
                 time.sleep(60)
