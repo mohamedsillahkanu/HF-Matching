@@ -149,6 +149,7 @@ st.markdown("""
         .content-text {
             color: var(--text-color, #E0E0E0) !important;
         }
+
         
         @keyframes fadeIn {
             from { opacity: 0; }
