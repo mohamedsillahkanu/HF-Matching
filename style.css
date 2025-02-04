@@ -1,0 +1,182 @@
+/* Base Styles */
+.stApp {
+    background-color: var(--bg-color, #0E1117) !important;
+    color: var(--text-color, #E0E0E0) !important;
+}
+
+[data-testid="stSidebar"] {
+    background-color: var(--sidebar-bg, #1E1E1E) !important;
+    border-right: 1px solid var(--border-color, #2E2E2E);
+}
+
+.stMarkdown, p, h1, h2, h3 {
+    color: var(--text-color, #E0E0E0) !important;
+}
+
+/* Dark Theme Button Styling */
+[data-theme="dark"] .stButton > button,
+[data-theme="dark"] .stDownloadButton > button {
+    color: white !important;
+    font-weight: bold !important;
+    background-color: #1E1E1E !important;
+    border: 2px solid #3498db !important;
+    border-radius: 4px !important;
+    padding: 0.5rem 1rem !important;
+    width: 100% !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+[data-theme="dark"] .stButton > button:hover,
+[data-theme="dark"] .stDownloadButton > button:hover {
+    background-color: #2E2E2E !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Light Theme Button Styling */
+[data-theme="light"] .stButton > button,
+[data-theme="light"] .stDownloadButton > button {
+    color: black !important;
+    font-weight: bold !important;
+    background-color: white !important;
+    border: 2px solid #2e2e2e !important;
+    border-radius: 4px !important;
+    padding: 0.5rem 1rem !important;
+    width: 100% !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+[data-theme="light"] .stButton > button:hover,
+[data-theme="light"] .stDownloadButton > button:hover {
+    background-color: #f0f0f0 !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Dark Theme File Uploader */
+[data-theme="dark"] [data-testid="stFileUploader"] {
+    background-color: #1E1E1E !important;
+    padding: 1rem !important;
+    border-radius: 4px !important;
+    border: 2px solid #3498db !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+[data-theme="dark"] [data-testid="stFileUploader"] > div > div {
+    color: white !important;
+    font-weight: bold !important;
+}
+
+/* Light Theme File Uploader */
+[data-theme="light"] [data-testid="stFileUploader"] {
+    background-color: white !important;
+    padding: 1rem !important;
+    border-radius: 4px !important;
+    border: 2px solid #2e2e2e !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+[data-theme="light"] [data-testid="stFileUploader"] > div > div {
+    color: black !important;
+    font-weight: bold !important;
+}
+
+/* Dark Theme Select Box */
+[data-theme="dark"] .stSelectbox > div > div {
+    color: white !important;
+    font-weight: bold !important;
+    background-color: #1E1E1E !important;
+    border: 2px solid #3498db !important;
+    border-radius: 4px !important;
+}
+
+/* Light Theme Select Box */
+[data-theme="light"] .stSelectbox > div > div {
+    color: black !important;
+    font-weight: bold !important;
+    background-color: white !important;
+    border: 2px solid #2e2e2e !important;
+    border-radius: 4px !important;
+}
+
+/* Success Message Styling */
+[data-theme="dark"] .stSuccess {
+    color: white !important;
+    font-weight: bold !important;
+    background-color: #1E1E1E !important;
+    border: 2px solid #00ff00 !important;
+    border-radius: 4px !important;
+}
+
+[data-theme="light"] .stSuccess {
+    color: black !important;
+    font-weight: bold !important;
+    background-color: white !important;
+    border: 2px solid #00aa00 !important;
+    border-radius: 4px !important;
+}
+
+/* Error Message Styling */
+[data-theme="dark"] .stError {
+    color: white !important;
+    font-weight: bold !important;
+    background-color: #1E1E1E !important;
+    border: 2px solid #ff0000 !important;
+    border-radius: 4px !important;
+}
+
+[data-theme="light"] .stError {
+    color: black !important;
+    font-weight: bold !important;
+    background-color: white !important;
+    border: 2px solid #ff0000 !important;
+    border-radius: 4px !important;
+}
+
+/* DataFrame Styling */
+[data-theme="dark"] .stDataFrame {
+    color: white !important;
+    font-weight: bold !important;
+    background-color: #1E1E1E !important;
+    border: 2px solid #3498db !important;
+    border-radius: 4px !important;
+}
+
+[data-theme="light"] .stDataFrame {
+    color: black !important;
+    font-weight: bold !important;
+    background-color: white !important;
+    border: 2px solid #2e2e2e !important;
+    border-radius: 4px !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.slide-in {
+    animation: slideIn 0.5s ease-out;
+}
+
+.scale-in {
+    animation: scaleIn 0.5s ease-out;
+}
